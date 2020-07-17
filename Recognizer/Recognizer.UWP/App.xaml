@@ -1,0 +1,14 @@
+﻿<Application
+    x:Class="Recognizer.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Recognizer.UWP"
+    RequestedTheme="Light">
+    <Application.Resources>
+        <ResourceDictionary>
+            <x:String x:Key="endpoint">https://api.cognitive.microsoft.com/inkrecognizer/v1.0-preview/recognize</x:String>
+            <x:String x:Key="apiaddress">https://kansasocr.cognitiveservices.azure.com/</x:String>
+            <x:String x:Key="key">1a2a59b293654697aa4ce665679e59c1</x:String>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
