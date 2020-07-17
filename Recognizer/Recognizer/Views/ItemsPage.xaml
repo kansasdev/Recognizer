@@ -10,24 +10,30 @@
              Title="{Binding Title}"
              x:Name="BrowseItemsPage">
 
-
-    <Grid BackgroundColor="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="0.15*"></RowDefinition>
-            <RowDefinition Height="0.15*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-        <skia:SKCanvasView x:Name="canvasView" EnableTouchEvents="True"
+    
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0.05*"></RowDefinition>
+                <RowDefinition Height="0.15*"></RowDefinition>
+                <RowDefinition Height="0.15*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        <skia:SKCanvasView x:Name="canvasView" EnableTouchEvents="True" Grid.Row="0"
                            PaintSurface="OnCanvasViewPaintSurface" />
-        <Button x:Name="btnSend" Grid.Row="1" Text="RECOGNIZE" Padding="5" Margin="5" Clicked="btnSend_Clicked"></Button>
-        <Button x:Name="btnClear" Grid.Row="2" Text="CLEAR" Clicked="btnClear_Clicked" Padding="5" Margin="5"></Button>
-        <Grid.Effects>
-            <tt:TouchEffect Capture="True"
+            <ActivityIndicator x:Name="waitIndicator" Grid.Row="1"
+                    Color="Blue"
+                     VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="Fill" />
+        
+            <Button x:Name="btnSend" Text="RECOGNIZE" Padding="5" Margin="5" Clicked="btnSend_Clicked" Grid.Row="2"></Button>
+            <Button x:Name="btnClear" Text="CLEAR" Clicked="btnClear_Clicked" Padding="5" Margin="5" Grid.Row="3"></Button>
+            <Grid.Effects>
+                <tt:TouchEffect Capture="True"
                             TouchAction="OnTouchEffectAction" />
-        </Grid.Effects>
-    </Grid>
+            </Grid.Effects>
+        </Grid>
+    
 </ContentPage>

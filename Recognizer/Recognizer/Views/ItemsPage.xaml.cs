@@ -167,6 +167,8 @@ namespace Recognizer.Views
 
             try
             {
+                await SetIndicator(true);
+                
                 using (SKImage image = SKImage.FromBitmap(saveBitmap))
                 {
                     SKData data = image.Encode();
@@ -300,11 +302,23 @@ namespace Recognizer.Views
                         }
                     }
                 }
+                await SetIndicator(false);
             }
             catch(Exception ex)
             {
+                await SetIndicator(false);
                 await DisplayActionSheet("Exception during execution: " + ex.Message, "Cancel", "OK", new string[] { });
             }
+        }
+        
+        private async Task SetIndicator(bool enabled)
+        {
+            waitIndicator.IsRunning = enabled;
+            canvasView.IsEnabled = !enabled;
+            btnClear.IsEnabled = !enabled;
+            btnSend.IsEnabled = !enabled;
+
+            await Task.CompletedTask;
         }
     }
 }

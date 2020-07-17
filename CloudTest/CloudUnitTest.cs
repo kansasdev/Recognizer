@@ -23,6 +23,7 @@ namespace CloudTest
         {
             try
             {
+                //test
                 var configuration = new ConfigurationBuilder().AddJsonFile("config.json").Build();
                 if (configuration != null)
                 {

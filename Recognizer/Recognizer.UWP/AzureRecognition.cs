@@ -87,7 +87,7 @@ namespace Recognizer.UWP
                 string speechKey = configuration["keyspeech"];
                 string endpoint = configuration["endpointspeech"];
 
-                var config = SpeechConfig.FromSubscription(speechKey,"EuropeNorth");
+                var config = SpeechConfig.FromSubscription(speechKey,"westus");
                                 
                 MediaPlayer mediaPlayer = new MediaPlayer();
 
