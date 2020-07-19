@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using Windows.Foundation;
 using Windows.UI.Input.Inking;
 
-namespace Recognizer.OCR
+namespace Recognizer.UWP.OCR
 {
     public class InkRecognizerPoint
     {

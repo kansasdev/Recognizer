@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Recognizer.OCR
+namespace Recognizer.UWP.OCR
 {
     public enum RecognitionUnitKind
     {

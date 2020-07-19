@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Recognizer.OCR
+namespace Recognizer.UWP.OCR
 {
     abstract public class InkRecognitionUnit
     {

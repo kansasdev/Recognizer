@@ -15,8 +15,7 @@ using TouchTracking;
 using SkiaSharp.Views.Forms;
 using Recognizer.Services;
 using System.Threading;
-using Windows.UI.Xaml.Navigation;
-using Recognizer.OCR;
+
 using Newtonsoft.Json.Converters;
 
 namespace Recognizer.Views

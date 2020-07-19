@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Recognizer.OCR
+namespace Recognizer.UWP.OCR
 {
     public class InkRecognitionResponseConverter : JsonConverter
     {
