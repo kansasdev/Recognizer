@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Recognizer.OCR
+namespace Recognizer.UWP.OCR
 {
     public class InkRecognitionRoot
     {

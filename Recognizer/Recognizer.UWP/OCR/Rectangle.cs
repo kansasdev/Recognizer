@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Recognizer.OCR
+namespace Recognizer.UWP.OCR
 {
     public class Rectangle
     {

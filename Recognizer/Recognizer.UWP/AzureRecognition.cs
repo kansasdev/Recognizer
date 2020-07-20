@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Recognizer.OCR;
+using Recognizer.UWP.OCR;
 using Recognizer.Services;
 using Microsoft.CognitiveServices.Speech;
 using Windows.Media.Playback;
@@ -86,9 +86,8 @@ namespace Recognizer.UWP
             {
                 string speechKey = configuration["keyspeech"];
                 string endpoint = configuration["endpointspeech"];
-                string speechregion = configuration["region"];
 
-                var config = SpeechConfig.FromSubscription(speechKey,speechregion);
+                var config = SpeechConfig.FromSubscription(speechKey,"westeurope");
                                 
                 MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -104,19 +103,30 @@ namespace Recognizer.UWP
 
                             using (var audioStream = AudioDataStream.FromResult(result))
                             {
-                                StorageFolder picturesDirectory = KnownFolders.PicturesLibrary;
+
+
+                                //var picLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
+
                                 // Save synthesized audio data as a wave file and use MediaPlayer to play it
-                                var filePath = Path.Combine(picturesDirectory.Path, "outputaudio.wav");
-                                await audioStream.SaveToWaveFileAsync(filePath);
-                                mediaPlayer.Source = MediaSource.CreateFromStorageFile(await StorageFile.GetFileFromPathAsync(filePath));
+                                //string filePath = picLibrary.SaveFolder.Path+"\\outputaudio.wav";
+                                //await audioStream.SaveToWaveFileAsync(filePath);
+                                //mediaPlayer.Source = MediaSource.CreateFromStorageFile(await StorageFile.GetFileFromPathAsync(filePath));
+                                MemoryStream ms = new MemoryStream(result.AudioData);
+                                ms.Seek(0, SeekOrigin.Begin);
+                                mediaPlayer.SetStreamSource(ms.AsRandomAccessStream());
                                 mediaPlayer.Play();
                             }
                         }
                         else if (result.Reason == ResultReason.Canceled)
                         {
                             var cancellation = SpeechSynthesisCancellationDetails.FromResult(result);
-                                                        
-                            throw new Exception("Error: "+cancellation.ErrorDetails);
+
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendLine($"CANCELED: Reason={cancellation.Reason}");
+                            sb.AppendLine($"CANCELED: ErrorCode={cancellation.ErrorCode}");
+                            sb.AppendLine($"CANCELED: ErrorDetails=[{cancellation.ErrorDetails}]");
+
+                            throw new Exception(sb.ToString());
                         }
                     }
                 }

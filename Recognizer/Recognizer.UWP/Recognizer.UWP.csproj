@@ -97,6 +97,25 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OCR\Alternates.cs" />
+    <Compile Include="OCR\HttpErrorDetails.cs" />
+    <Compile Include="OCR\InkBullet.cs" />
+    <Compile Include="OCR\InkDrawing.cs" />
+    <Compile Include="OCR\InkLine.cs" />
+    <Compile Include="OCR\InkListItem.cs" />
+    <Compile Include="OCR\InkParagraph.cs" />
+    <Compile Include="OCR\InkRecognitionRequest.cs" />
+    <Compile Include="OCR\InkRecognitionResponse.cs" />
+    <Compile Include="OCR\InkRecognitionResponseConverter.cs" />
+    <Compile Include="OCR\InkRecognitionRoot.cs" />
+    <Compile Include="OCR\InkRecognitionUnit.cs" />
+    <Compile Include="OCR\InkRecognizerStroke.cs" />
+    <Compile Include="OCR\InkWord.cs" />
+    <Compile Include="OCR\InkWritingRegion.cs" />
+    <Compile Include="OCR\JSONProcessor.cs" />
+    <Compile Include="OCR\PointDetailsPattern.cs" />
+    <Compile Include="OCR\RecognitionUnitKind.cs" />
+    <Compile Include="OCR\Rectangle.cs" />
     <Compile Include="PhotoLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TouchEffect.cs" />

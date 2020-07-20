@@ -1,4 +1,4 @@
-﻿namespace Recognizer.OCR
+﻿namespace Recognizer.UWP.OCR
 {
     public class InkParagraph : InkRecognitionUnit
     {
