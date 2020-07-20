@@ -86,8 +86,9 @@ namespace Recognizer.UWP
             {
                 string speechKey = configuration["keyspeech"];
                 string endpoint = configuration["endpointspeech"];
+                string speechregion = configuration["region"];
 
-                var config = SpeechConfig.FromSubscription(speechKey,"westus");
+                var config = SpeechConfig.FromSubscription(speechKey,speechregion);
                                 
                 MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -114,13 +115,8 @@ namespace Recognizer.UWP
                         else if (result.Reason == ResultReason.Canceled)
                         {
                             var cancellation = SpeechSynthesisCancellationDetails.FromResult(result);
-
-                            StringBuilder sb = new StringBuilder();
-                            sb.AppendLine($"CANCELED: Reason={cancellation.Reason}");
-                            sb.AppendLine($"CANCELED: ErrorCode={cancellation.ErrorCode}");
-                            sb.AppendLine($"CANCELED: ErrorDetails=[{cancellation.ErrorDetails}]");
-
-                            throw new Exception(sb.ToString());
+                                                        
+                            throw new Exception("Error: "+cancellation.ErrorDetails);
                         }
                     }
                 }
