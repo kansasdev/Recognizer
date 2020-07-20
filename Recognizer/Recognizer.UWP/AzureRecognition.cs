@@ -103,14 +103,7 @@ namespace Recognizer.UWP
 
                             using (var audioStream = AudioDataStream.FromResult(result))
                             {
-
-
-                                //var picLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
-
-                                // Save synthesized audio data as a wave file and use MediaPlayer to play it
-                                //string filePath = picLibrary.SaveFolder.Path+"\\outputaudio.wav";
-                                //await audioStream.SaveToWaveFileAsync(filePath);
-                                //mediaPlayer.Source = MediaSource.CreateFromStorageFile(await StorageFile.GetFileFromPathAsync(filePath));
+                                                                                              
                                 MemoryStream ms = new MemoryStream(result.AudioData);
                                 ms.Seek(0, SeekOrigin.Begin);
                                 mediaPlayer.SetStreamSource(ms.AsRandomAccessStream());

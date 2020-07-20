@@ -1,7 +1,7 @@
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Recognizer.OCR;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,20 +49,9 @@ namespace CloudTest
                         if (res.IsSuccessStatusCode)
                         {
                             string result = res.Content.ReadAsStringAsync().Result;
+                            dynamic obj = JObject.Parse(result);
 
-                            InkRecognitionRoot root = JSONProcessor.ParseInkRecognizerResponse(result);
 
-                            if (root != null)
-                            {
-                                List<InkLine> lstLines = root.GetLines().ToList();
-                                string tekst = string.Empty;
-                                foreach (InkLine line in lstLines)
-                                {
-                                    tekst += tekst + line.RecognizedText;
-                                }
-
-                                Trace.WriteLine(tekst);
-                            }
                         }
                         else
                         {
