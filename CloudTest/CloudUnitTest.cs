@@ -33,7 +33,7 @@ namespace CloudTest
                 {
                     string endpoint = configuration["endpoint"];
                     string subscriptionKey = configuration["key"];
-                    string requestData = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\FingerPaint-20200715-033126209.json");
+                    string requestData = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\FingerPaint-20200719-112850786.json");
 
                     string apiAddress = configuration["apiaddress"];
 
@@ -49,8 +49,16 @@ namespace CloudTest
                         if (res.IsSuccessStatusCode)
                         {
                             string result = res.Content.ReadAsStringAsync().Result;
-                            dynamic obj = JObject.Parse(result);
-
+                            JToken tok = JToken.Parse(result);
+                            WalkNode(tok, n =>
+                            {
+                                JToken token = n["recognizedText"];
+                                if (token != null && token.Type == JTokenType.String)
+                                {
+                                    string title = token.Value<string>();
+                                    Console.WriteLine(title);
+                                }
+                            });
 
                         }
                         else
@@ -69,7 +77,27 @@ namespace CloudTest
                 Trace.WriteLine("B³¹d: " + ex.Message);
             }
         }
-        
+
+        static void WalkNode(JToken node, Action<JObject> action)
+        {
+            if (node.Type == JTokenType.Object)
+            {
+                action((JObject)node);
+
+                foreach (JProperty child in node.Children<JProperty>())
+                {
+                    WalkNode(child.Value, action);
+                }
+            }
+            else if (node.Type == JTokenType.Array)
+            {
+                foreach (JToken child in node.Children())
+                {
+                    WalkNode(child, action);
+                }
+            }
+        }
+
         [TestMethod]
          public async Task  SayTest()
         {
