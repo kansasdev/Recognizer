@@ -21,7 +21,7 @@ namespace Recognizer
 
             DependencyService.Register<MockDataStore>();
             
-            //CheckPermissions();
+            CheckPermissions();
 
             MainPage = new MainPage();
         }
@@ -44,7 +44,7 @@ namespace Recognizer
 
             try
             {
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Photos);
                 if (status != PermissionStatus.Granted)
                 {
                     if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))

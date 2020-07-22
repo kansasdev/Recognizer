@@ -25,13 +25,15 @@ namespace Recognizer.Droid
 
         private AppSettingsManager()
         {
-                var assembly = IntrospectionExtensions.GetTypeInfo(typeof(AppSettingsManager)).Assembly;
-                var stream = assembly.GetManifestResourceStream($"{Namespace}.{FileName}");
-                using (var reader = new StreamReader(stream))
-                {
-                    var json = reader.ReadToEnd();
-                    _secrets = JObject.Parse(json);
-                }
+           
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(AppSettingsManager)).Assembly;
+            var stream = assembly.GetManifestResourceStream($"{Namespace}.{FileName}");
+            using (var reader = new StreamReader(stream))
+            {
+                var json = reader.ReadToEnd();
+                _secrets = JObject.Parse(json);
+            }
+            
         }
 
         public static AppSettingsManager Settings
