@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -19,6 +19,7 @@ namespace Recognizer.Droid
             base.OnCreate(bundle);
             Instance = this;
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            UserDialogs.Init(this);
             LoadApplication(new App());
         }
         // Field, property, and method for Picture Picker
