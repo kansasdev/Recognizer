@@ -1,0 +1,8 @@
+{
+  "endpoint": "https://api.cognitive.microsoft.com/inkrecognizer/v1.0-preview/recognize",
+  "apiaddress": "",
+  "key": "",
+  "endpointspeech": "",
+  "keyspeech": "",
+  "language": "en-US"
+}

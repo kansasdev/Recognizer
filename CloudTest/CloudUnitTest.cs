@@ -50,15 +50,24 @@ namespace CloudTest
                         {
                             string result = res.Content.ReadAsStringAsync().Result;
                             JToken tok = JToken.Parse(result);
+                            string recognizedText = string.Empty;
                             WalkNode(tok, n =>
                             {
                                 JToken token = n["recognizedText"];
-                                if (token != null && token.Type == JTokenType.String)
+                                if (string.IsNullOrEmpty(recognizedText))
                                 {
-                                    string title = token.Value<string>();
-                                    Console.WriteLine(title);
+                                    if (token != null && token.Type == JTokenType.String)
+                                    {
+                                        recognizedText = token.Value<string>();
+
+                                    }
                                 }
                             });
+
+                            if(recognizedText!="")
+                            {
+                                Trace.WriteLine("Recognized: " + recognizedText);
+                            }
 
                         }
                         else
