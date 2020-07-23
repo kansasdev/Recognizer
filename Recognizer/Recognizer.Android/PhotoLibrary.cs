@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 
 using Recognizer.Droid;
+using System;
 
 [assembly: Dependency(typeof(PhotoLibrary))]
 
@@ -35,7 +36,7 @@ namespace Recognizer.Droid
         {
             try
             {
-                File picturesDirectory = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures);
+                File picturesDirectory = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
                 File folderDirectory = picturesDirectory;
                 if (!string.IsNullOrEmpty(folder))
                 {
@@ -56,9 +57,10 @@ namespace Recognizer.Droid
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
+                
             }
             return true;
         }
@@ -67,7 +69,7 @@ namespace Recognizer.Droid
         {
             try
             {
-                File picturesDirectory = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures);
+                File picturesDirectory = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
                 File folderDirectory = picturesDirectory;
                 if (!string.IsNullOrEmpty(folder))
                 {
@@ -88,9 +90,9 @@ namespace Recognizer.Droid
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
             return true;
         }

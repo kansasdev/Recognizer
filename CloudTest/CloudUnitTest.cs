@@ -33,7 +33,7 @@ namespace CloudTest
                 {
                     string endpoint = configuration["endpoint"];
                     string subscriptionKey = configuration["key"];
-                    string requestData = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\FingerPaint-20200719-112850786.json");
+                    string requestData = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\FingerPaint-20200723-042513147.json");
 
                     string apiAddress = configuration["apiaddress"];
 
