@@ -17,6 +17,7 @@ using Recognizer.Services;
 using System.Threading;
 
 using Newtonsoft.Json.Converters;
+using Acr.UserDialogs;
 
 namespace Recognizer.Views
 {
@@ -199,7 +200,7 @@ namespace Recognizer.Views
                         string points = string.Empty;
                         foreach (SKPoint pnt in p.Points)
                         {
-                            points += pnt.X + "," + pnt.Y + ",";
+                            points += pnt.X.ToString().Replace(",",".") + "," + pnt.Y.ToString().Replace(",",".") + ",";
                         }
                         points = points.Remove(points.Length - 1);
                         jsonStrokes += "{" +
@@ -215,7 +216,7 @@ namespace Recognizer.Views
                     IPhotoLibrary photoLibrary = DependencyService.Get<IPhotoLibrary>();
                     if (photoLibrary == null)
                     {
-                        await DisplayActionSheet("Couldn't save your image", "Cancel", "OK", new string[] { });
+                        await UserDialogs.Instance.AlertAsync("Photo library is not acccessible", "Can't get photo library");
                     }
                     else
                     {
@@ -225,13 +226,13 @@ namespace Recognizer.Views
 
                         if (!result)
                         {
-                            await DisplayActionSheet("Artwork could not be saved. Sorry!", "Cancel", "OK", new string[] { });
+                            await UserDialogs.Instance.AlertAsync("Paint could not be saved", "Problem during saving image");
                         }
 
                         bool jsonResult = await photoLibrary.SaveJsonAsync(jsonStrokes, "FingerPaint", jsonfilename);
                         if (!jsonResult)
                         {
-                            await DisplayActionSheet("Couldn't save strokes to file. Sorry!", "Cancel", "OK", new string[] { });
+                            await UserDialogs.Instance.AlertAsync("Couldn't save strokes to file. Sorry!", "Problem saving strokes");
                         }
 
                         //create request
@@ -242,20 +243,25 @@ namespace Recognizer.Views
 
                             if (resultArr != null && resultArr.Length >= 1)
                             {
-
+                                string txtToSay = string.Empty;
+                                foreach (string t in resultArr)
+                                {
+                                    txtToSay = txtToSay + t;
+                                }
                                 try
                                 {
-                                    string promptResult = await DisplayActionSheet("Text recognized, choose best one", "Finish", "Say it", resultArr);
-                                    if (!string.IsNullOrEmpty(promptResult) && (promptResult != "Finish" || promptResult != "Say it"))
-                                    {
-                                        if (promptResult == "Say it")
+                                    PromptResult pr = await UserDialogs.Instance.PromptAsync(new PromptConfig() { Title = "Text recognized, you may also correct it typing in", CancelText = "Finish", OkText = "Say it", Message = txtToSay });
+                                    
+                                        if (pr.Ok==true)
                                         {
-                                            string txtToSay = string.Empty;
-                                            foreach(string t in resultArr)
+                                            if (string.IsNullOrEmpty(pr.Text))
                                             {
-                                                txtToSay = txtToSay + t;
+                                                await recognition.SayIT(txtToSay);
                                             }
-                                            await recognition.SayIT(txtToSay);
+                                            else
+                                            {
+                                                await recognition.SayIT(pr.Text);
+                                            }
                                         }
                                         else
                                         {
@@ -264,20 +270,14 @@ namespace Recognizer.Views
                                             UpdateBitmap();
                                             canvasView.InvalidateSurface();
                                         }
-                                    }
-                                    else
-                                    {
-                                        inProgressPaths.Clear();
-                                        completedPaths.Clear();
-                                        UpdateBitmap();
-                                        canvasView.InvalidateSurface();
-                                    }
+                                    
 
 
                                 }
                                 catch (Exception exx)
                                 {
-                                    await DisplayActionSheet("Error parsing response from OCR/speech engine: " + exx.Message, "Cancel", "OK", new string[] { });
+                                    
+                                    await UserDialogs.Instance.AlertAsync(exx.Message, "Error parsing response from OCR/speech engine");
                                     inProgressPaths.Clear();
                                     completedPaths.Clear();
                                     UpdateBitmap();
@@ -287,7 +287,7 @@ namespace Recognizer.Views
                             }
                             else
                             {
-                                await DisplayActionSheet("Paint doesn't contain any text", "Cancel", "OK", new string[] { });
+                                await UserDialogs.Instance.AlertAsync("Paint doesn't contain any text", "Problem while getting strokes from image");
                                 inProgressPaths.Clear();
                                 completedPaths.Clear();
                                 UpdateBitmap();
@@ -297,7 +297,7 @@ namespace Recognizer.Views
                         }
                         else
                         {
-                            await DisplayActionSheet("Can't get IAzureRecognition implementation","Cancel", "OK",new string[] { });
+                            await UserDialogs.Instance.AlertAsync("Can't get IAzureRecognition implementation","Object not implemented");
                         }
                     }
                 }
@@ -306,7 +306,7 @@ namespace Recognizer.Views
             catch(Exception ex)
             {
                 await SetIndicator(false);
-                await DisplayActionSheet("Exception during execution: " + ex.Message, "Cancel", "OK", new string[] { });
+                await UserDialogs.Instance.AlertAsync(ex.Message, "Exception during execution");
             }
         }
         
