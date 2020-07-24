@@ -10,7 +10,7 @@ namespace Recognizer.ViewModels
         public ConfigViewModel()
         {
             Title = "Configuration";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://xamarin.com"));
+            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://github.com/kansasdev/Recognizer"));
         }
 
         public ICommand OpenWebCommand { get; }

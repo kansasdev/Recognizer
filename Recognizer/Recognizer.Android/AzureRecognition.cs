@@ -101,7 +101,7 @@ namespace Recognizer.Droid
             var config = SpeechConfig.FromSubscription(speechKey, "westeurope");
 
             MediaPlayer mediaPlayer = new MediaPlayer();
-
+            mediaPlayer.SetVolume(1f, 1f);
             // Creates a speech synthesizer.
             using (var synthesizer = new SpeechSynthesizer(config, null))
             {
@@ -122,6 +122,7 @@ namespace Recognizer.Droid
                                 mediaPlayer.Start();
                             };
                             mediaPlayer.SetDataSource(new StreamMediaDataSource(ms));
+                            
                             mediaPlayer.Prepare();
                         }
                     }
