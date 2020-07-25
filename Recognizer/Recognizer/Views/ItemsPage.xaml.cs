@@ -165,6 +165,7 @@ namespace Recognizer.Views
         private async void btnSend_Clicked(object sender, EventArgs e)
         {
 
+
             try
             {
                 await SetIndicator(true);
@@ -250,7 +251,7 @@ namespace Recognizer.Views
                                 }
                                 try
                                 {
-                                    PromptResult pr = await UserDialogs.Instance.PromptAsync(new PromptConfig() { Title = "Text recognized, you may also correct it typing in", CancelText = "Finish", OkText = "Say it", Message = txtToSay });
+                                    PromptResult pr = await UserDialogs.Instance.PromptAsync(new PromptConfig() { Title = "Text recognized, you may correct it. Increase media vol", CancelText = "Finish", OkText = "Say it", Message = txtToSay });
                                     
                                         if (pr.Ok==true)
                                         {

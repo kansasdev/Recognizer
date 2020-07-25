@@ -5,6 +5,8 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Runtime;
+using Plugin.Permissions;
 
 namespace Recognizer.Droid
 {
@@ -20,6 +22,7 @@ namespace Recognizer.Droid
             Instance = this;
             global::Xamarin.Forms.Forms.Init(this, bundle);
             UserDialogs.Init(this);
+            Xamarin.Essentials.Platform.Init(this, bundle);
             LoadApplication(new App());
         }
         // Field, property, and method for Picture Picker
@@ -45,6 +48,13 @@ namespace Recognizer.Droid
 
             }
 
+        }
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

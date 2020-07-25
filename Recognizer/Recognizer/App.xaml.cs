@@ -44,12 +44,12 @@ namespace Recognizer
 
             try
             {
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Photos);
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
                 if (status != PermissionStatus.Granted)
                 {
                     if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
                     {
-                        await UserDialogs.Instance.AlertAsync("Requires permissions", "Permission Required");
+                        await UserDialogs.Instance.AlertAsync("Requires permissions to photos library", "Permission Required");
                     }
                     permissions.Add(Permission.Storage);
                 }
