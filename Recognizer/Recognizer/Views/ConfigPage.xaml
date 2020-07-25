@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Recognizer.Views.AboutPage"
+             x:Class="Recognizer.Views.ConfigPage"
              xmlns:vm="clr-namespace:Recognizer.ViewModels"
              Title="{Binding Title}">
     
@@ -72,6 +72,23 @@
                 </Label>
                 <Button Margin="0,10,0,0" Text="About Recognizer project (Github)"
                         Command="{Binding OpenWebCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Application requires Azure Cognitive services, you need to enter keys, api addresses and region " />
+                                <Span Text=" " />
+                                <Span Text="There aren't any regexes in textboxes - enter data correctly" FontAttributes="Bold" />
+                                <Span Text=" " />
+                                
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button Margin="0,10,0,0" Text="Update settings"
+                        Command="{Binding UpdateConfigCommand}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" />
             </StackLayout>

@@ -98,7 +98,7 @@ namespace Recognizer.Droid
             string speechKey = AppSettingsManager.Settings["keyspeech"];
             string endpoint = AppSettingsManager.Settings["endpointspeech"];
 
-            var config = SpeechConfig.FromSubscription(speechKey, "westeurope");
+            var config = SpeechConfig.FromSubscription(speechKey, endpoint);
 
             MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.SetVolume(1f, 1f);
