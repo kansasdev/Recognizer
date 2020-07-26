@@ -14,5 +14,7 @@ namespace Recognizer.ViewModels
         }
 
         public ICommand OpenWebCommand { get; }
+
+        public ICommand UpdateConfigCommand { get; }
     }
 }

@@ -87,10 +87,19 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Button Margin="0,10,0,0" Text="Update settings"
+                <Entry x:Name="txtKeyOcr" Placeholder="Azure key for Cognitive Services - Vision" />
+                <Entry x:Name="txtEndpointAzure" Placeholder="Azure Endpoint address for Vision Cognitive services" />
+                <Entry x:Name="txtKeySpeech" Placeholder="Azure key for Cognitive Services - Speech" />
+                <Entry x:Name="txtRegion" Placeholder="Azure associated region" />
+                <Entry x:Name="txtLanguage" Placeholder="Preffered language" />
+                <ActivityIndicator x:Name="waitIndicator" 
+                    Color="Blue" 
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="Fill" />
+                <Button Margin="0,5,0,0" Text="Update settings"
                         Command="{Binding UpdateConfigCommand}"
                         BackgroundColor="{StaticResource Primary}"
-                        TextColor="White" />
+                        TextColor="White" Clicked="Button_Clicked" x:Name="btnUpdate" />
             </StackLayout>
         </ScrollView>
     </Grid>

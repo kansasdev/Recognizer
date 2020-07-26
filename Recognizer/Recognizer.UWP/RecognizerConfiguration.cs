@@ -20,7 +20,7 @@ namespace Recognizer.UWP
             {
                 AzureConfiguration ac = new AzureConfiguration();
 
-                ac.ApiAddress = configuration["endpoint"];
+                ac.ApiAddress = configuration["apiaddress"];
                 ac.KeyOcr  = configuration["key"];
                 ac.Language = configuration["language"];
                 ac.KeySpeech = configuration["keyspeech"];

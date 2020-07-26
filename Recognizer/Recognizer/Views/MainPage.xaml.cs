@@ -34,7 +34,7 @@ namespace Recognizer.Views
                         MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                         break;
                     case (int)MenuItemType.Configuration:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        MenuPages.Add(id, new NavigationPage(new ConfigPage()));
                         break;
                 }
             }
