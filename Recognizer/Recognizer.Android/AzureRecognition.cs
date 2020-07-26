@@ -23,14 +23,14 @@ namespace Recognizer.Droid
         public string[] GetOCR(string jsonStrokes,string url,string key,string language)
         {
 
-                string endpoint = url;//AppSettingsManager.Settings["endpoint"];
+                string endpoint = AppSettingsManager.Settings["endpoint"];
                 string subscriptionKey = key;//AppSettingsManager.Settings["key"];
 
                 string lang = language;//AppSettingsManager.Settings["language"];
                 jsonStrokes = jsonStrokes.Replace("\"language\": \"en-US\"", "\"language\": \"" + lang + "\"");
 
                 string requestData = jsonStrokes;
-                string apiAddress = AppSettingsManager.Settings["apiaddress"];
+                string apiAddress = url;
 
                 using (HttpClient client = new HttpClient { BaseAddress = new Uri(apiAddress) })
                 {

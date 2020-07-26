@@ -25,7 +25,7 @@ namespace Recognizer.Views
             _irc = DependencyService.Get<IRecognizerConfiguration>();
             if(_irc==null)
             {
-                UserDialogs.Instance.Alert("Recognzier configuration is null", "Can't get Recognizer Configuration");
+                UserDialogs.Instance.Alert("Recognizer configuration is null", "Can't get Recognizer Configuration");
             }
             else
             {
@@ -62,7 +62,7 @@ namespace Recognizer.Views
             try
             {
                 await SetIndicator(true);
-                //await _irc.SetConfig(_ac);
+               
                 Settings.EndpointSetting = txtEndpointAzure.Text;
                 Settings.KeyOcrSetting = txtKeyOcr.Text;
                 Settings.KeySpeechSetting = txtKeySpeech.Text;
