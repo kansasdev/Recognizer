@@ -7,8 +7,8 @@ namespace Recognizer.Services
 {
     public interface IAzureRecognition
     {
-        string[] GetOCR(string jsonStrokes);
+        string[] GetOCR(string jsonStrokes, string url, string key, string lang);
 
-        Task SayIT(string text);
+        Task SayIT(string text, string key, string region,string language);
     }
 }

@@ -18,6 +18,7 @@ using System.Threading;
 
 using Newtonsoft.Json.Converters;
 using Acr.UserDialogs;
+using Recognizer.Setup;
 
 namespace Recognizer.Views
 {
@@ -170,6 +171,11 @@ namespace Recognizer.Views
             {
                 await SetIndicator(true);
                 
+                if(Settings.NoSetupDefined)
+                {
+                    throw new Exception("Go to configuration and define settings");
+                }
+
                 using (SKImage image = SKImage.FromBitmap(saveBitmap))
                 {
                     SKData data = image.Encode();
@@ -240,7 +246,7 @@ namespace Recognizer.Views
                         IAzureRecognition recognition = DependencyService.Get<IAzureRecognition>();
                         if (recognition != null)
                         {
-                            string[] resultArr = recognition.GetOCR(jsonStrokes);
+                            string[] resultArr = recognition.GetOCR(jsonStrokes,Settings.EndpointSetting,Settings.KeyOcrSetting,Settings.LanguageSetting);
 
                             if (resultArr != null && resultArr.Length >= 1)
                             {
@@ -257,11 +263,11 @@ namespace Recognizer.Views
                                         {
                                             if (string.IsNullOrEmpty(pr.Text))
                                             {
-                                                await recognition.SayIT(txtToSay);
+                                                await recognition.SayIT(txtToSay,Settings.KeySpeechSetting,Settings.RegionSetting,Settings.LanguageSetting);
                                             }
                                             else
                                             {
-                                                await recognition.SayIT(pr.Text);
+                                            await recognition.SayIT(pr.Text, Settings.KeySpeechSetting, Settings.RegionSetting, Settings.LanguageSetting) ;
                                             }
                                         }
                                         else

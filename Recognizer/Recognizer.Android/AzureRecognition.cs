@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Android.Media;
+using Java.Net;
 using Microsoft.CognitiveServices.Speech;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -19,13 +20,13 @@ namespace Recognizer.Droid
 {
     public class AzureRecognition : IAzureRecognition
     {
-        public string[] GetOCR(string jsonStrokes)
+        public string[] GetOCR(string jsonStrokes,string url,string key,string language)
         {
-           
-                string endpoint = AppSettingsManager.Settings["endpoint"];
-                string subscriptionKey = AppSettingsManager.Settings["key"];
 
-                string lang = AppSettingsManager.Settings["language"];
+                string endpoint = url;//AppSettingsManager.Settings["endpoint"];
+                string subscriptionKey = key;//AppSettingsManager.Settings["key"];
+
+                string lang = language;//AppSettingsManager.Settings["language"];
                 jsonStrokes = jsonStrokes.Replace("\"language\": \"en-US\"", "\"language\": \"" + lang + "\"");
 
                 string requestData = jsonStrokes;
@@ -93,12 +94,13 @@ namespace Recognizer.Droid
             }
         }
 
-        public async Task SayIT(string text)
+        public async Task SayIT(string text,string key,string region,string language)
         {
-            string speechKey = AppSettingsManager.Settings["keyspeech"];
-            string endpoint = AppSettingsManager.Settings["endpointspeech"];
+            string speechKey = key;//AppSettingsManager.Settings["keyspeech"];
+            string endpoint = region;//AppSettingsManager.Settings["endpointspeech"];
 
             var config = SpeechConfig.FromSubscription(speechKey, endpoint);
+            config.SpeechSynthesisLanguage = language;
 
             MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.SetVolume(1f, 1f);

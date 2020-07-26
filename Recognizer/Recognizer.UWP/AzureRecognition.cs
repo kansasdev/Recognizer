@@ -23,19 +23,19 @@ namespace Recognizer.UWP
 
     public class AzureRecognition : IAzureRecognition
     {
-        public string[] GetOCR(string jsonStrokes)
+        public string[] GetOCR(string jsonStrokes, string url, string key, string language)
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("config.json").Build();
             if (configuration != null)
             {
                 string endpoint = configuration["endpoint"];
-                string subscriptionKey = configuration["key"];
+                string subscriptionKey = key;//configuration["key"];
 
-                string lang = configuration["language"];
+                string lang = language;//configuration["language"];
                 jsonStrokes = jsonStrokes.Replace("\"language\": \"en-US\"", "\"language\": \"" + lang + "\"");
 
                 string requestData = jsonStrokes;
-                string apiAddress = configuration["apiaddress"];
+                string apiAddress = url;
 
                 using (HttpClient client = new HttpClient { BaseAddress = new Uri(apiAddress) })
                 {
@@ -79,15 +79,15 @@ namespace Recognizer.UWP
             }
         }
 
-        public async Task SayIT(string text)
+        public async Task SayIT(string text, string key, string region,string language)
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("config.json").Build();
             if (configuration != null)
             {
-                string speechKey = configuration["keyspeech"];
-                string endpoint = configuration["endpointspeech"];
-
-                var config = SpeechConfig.FromSubscription(speechKey,"westeurope");
+                string speechKey = key;//configuration["keyspeech"];
+               
+                var config = SpeechConfig.FromSubscription(speechKey,region);
+                config.SpeechSynthesisLanguage = language;
                                 
                 MediaPlayer mediaPlayer = new MediaPlayer();
 

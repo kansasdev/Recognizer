@@ -1,5 +1,6 @@
 ﻿using Acr.UserDialogs;
 using Recognizer.Services;
+using Recognizer.Setup;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -28,38 +29,7 @@ namespace Recognizer.Views
             }
             else
             {
-                _ac = _irc.GetConfig();
-                if(_ac!=null)
-                {
-                    txtKeyOcr.Text = _ac.KeyOcr;
-                    txtEndpointAzure.Text = _ac.ApiAddress;
-                    txtKeySpeech.Text = _ac.KeySpeech;
-                    txtLanguage.Text = _ac.Language;
-                    txtRegion.Text = _ac.AzureRegion;
-                }
-                else
-                {
-                    UserDialogs.Instance.Alert("No data in config files", "Can't get detailed configuration");
-                }
-            }
-        }
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            try
-            {
-                await SetIndicator(true);
-                await _irc.SetConfig(_ac);
-                
-            }
-            catch(Exception ex)
-            {
-                await UserDialogs.Instance.AlertAsync("Detailed error: " + ex.Message, "Error during configuration exception");
-            }
-            finally
-            {
-                await SetIndicator(false);
-                if (_irc != null)
+                if (Settings.NoSetupDefined)
                 {
                     _ac = _irc.GetConfig();
                     if (_ac != null)
@@ -74,6 +44,67 @@ namespace Recognizer.Views
                     {
                         UserDialogs.Instance.Alert("No data in config files", "Can't get detailed configuration");
                     }
+                }
+                else
+                {
+                    txtEndpointAzure.Text = Settings.EndpointSetting;
+                    txtKeyOcr.Text = Settings.KeyOcrSetting;
+                    txtKeySpeech.Text = Settings.KeySpeechSetting;
+                    txtLanguage.Text = Settings.LanguageSetting;
+                    txtRegion.Text = Settings.RegionSetting;
+                    Settings.NoSetupDefined = false;
+                }
+            }
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await SetIndicator(true);
+                //await _irc.SetConfig(_ac);
+                Settings.EndpointSetting = txtEndpointAzure.Text;
+                Settings.KeyOcrSetting = txtKeyOcr.Text;
+                Settings.KeySpeechSetting = txtKeySpeech.Text;
+                Settings.LanguageSetting = txtLanguage.Text;
+                Settings.RegionSetting = txtRegion.Text;
+                Settings.NoSetupDefined = false;
+                
+            }
+            catch(Exception ex)
+            {
+                await UserDialogs.Instance.AlertAsync("Detailed error: " + ex.Message, "Error during configuration exception");
+            }
+            finally
+            {
+                await SetIndicator(false);
+                if (Settings.NoSetupDefined)
+                {
+                    if (_irc != null)
+                    {
+                        //_ac = _irc.GetConfig();
+                        if (_ac != null)
+                        {
+                            txtKeyOcr.Text = _ac.KeyOcr;
+                            txtEndpointAzure.Text = _ac.ApiAddress;
+                            txtKeySpeech.Text = _ac.KeySpeech;
+                            txtLanguage.Text = _ac.Language;
+                            txtRegion.Text = _ac.AzureRegion;
+                        }
+                        else
+                        {
+                            UserDialogs.Instance.Alert("No data in config files", "Can't get detailed configuration");
+                        }
+                    }
+                }
+                else
+                {
+                    txtEndpointAzure.Text = Settings.EndpointSetting;
+                    txtKeyOcr.Text = Settings.KeyOcrSetting;
+                    txtKeySpeech.Text = Settings.KeySpeechSetting;
+                    txtLanguage.Text = Settings.LanguageSetting;
+                    txtRegion.Text = Settings.RegionSetting;
+                    Settings.NoSetupDefined = false;
                 }
             }
         }
