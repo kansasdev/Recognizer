@@ -96,10 +96,10 @@ namespace Recognizer.Droid
 
         public async Task SayIT(string text,string key,string region,string language)
         {
-            string speechKey = key;//AppSettingsManager.Settings["keyspeech"];
-            string endpoint = region;//AppSettingsManager.Settings["endpointspeech"];
+            string speechKey = key;
+           
 
-            var config = SpeechConfig.FromSubscription(speechKey, endpoint);
+            var config = SpeechConfig.FromSubscription(speechKey, region);
             config.SpeechSynthesisLanguage = language;
 
             MediaPlayer mediaPlayer = new MediaPlayer();

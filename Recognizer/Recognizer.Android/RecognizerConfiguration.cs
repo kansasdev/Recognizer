@@ -25,7 +25,7 @@ namespace Recognizer.Droid
                 ac.KeyOcr = AppSettingsManager.Settings["key"];
                 ac.Language = AppSettingsManager.Settings["language"];
                 ac.KeySpeech = AppSettingsManager.Settings["keyspeech"];
-                ac.AzureRegion = AppSettingsManager.Settings["endpointspeech"];
+                ac.AzureRegion = AppSettingsManager.Settings["region"];
 
                 return ac;
         }

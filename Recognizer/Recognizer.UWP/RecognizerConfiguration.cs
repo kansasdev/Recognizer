@@ -24,7 +24,7 @@ namespace Recognizer.UWP
                 ac.KeyOcr  = configuration["key"];
                 ac.Language = configuration["language"];
                 ac.KeySpeech = configuration["keyspeech"];
-                ac.AzureRegion = configuration["endpointspeech"];
+                ac.AzureRegion = configuration["region"];
 
                 return ac;
 
