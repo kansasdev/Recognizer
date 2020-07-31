@@ -4,5 +4,6 @@
   "key": "",
   "endpointspeech": "https://api.cognitive.microsoft.com/sts/v1.0/issuetoken",
   "keyspeech": "",
-  "language": "en-US"
+  "language": "en-US",
+  "region": ""
 }
