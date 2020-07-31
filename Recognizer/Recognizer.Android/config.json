@@ -4,5 +4,6 @@
   "key": "",
   "endpointspeech": "",
   "keyspeech": "",
-  "language": "en-US"
+  "language": "en-US",
+  "region": ""
 }
